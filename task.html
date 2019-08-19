@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            /* Button */
+            .save-btn {background: #149614;color: #fff;padding: 6px;font-weight: 600;border-radius: 9px;font-size: 12px;box-shadow: 3px 3px 10px 0px black;border: 1px solid #149614;cursor: pointer;}
+            .save-btn:focus {outline: none}
+
+            /* Color Picker */
+            .red{background:#f00;width: 20px;height: 20px;border-radius: 50px;display: inline-flex;}
+            .green{background:#0f0;width: 20px;height: 20px;border-radius: 50px;display: inline-flex;}
+            .yellow{background: yellow;width: 20px;height: 20px;border-radius: 50px;display: inline-flex;}
+            #box-yellow:hover, #box-red:hover, #box-green:hover {border: 2px solid #ccc;}
+            
+           /* Carousel */
+            .button {width: 40px;height: 40px;text-align: center;display: inline-block;margin-top: 80px;padding-top: 2px;border-radius: 30px}
+            .button:focus {outline: none;}
+            #pre-btn {background-color: black;color: #f8f7f8;font-size: 1.5em;font-weight: bold;}
+            #next-btn {background-color: black;color: #f8f7f8;font-size: 1.5em;font-weight: bold;}
+            .image_carousel { padding: 22px 0 10px 0px;}
+            .image_carousel img { margin: 7px;float: left;}
+            .image_carousel a {margin: 0;border: 0;padding: 0;float: left;}
+            a.prev, a.next {width: 23px;height: 23px;top: 50px;}
+            a.prev {background: url('1.jpg') no-repeat transparent;float: left;}
+            a.next {background: url('2.jpg') no-repeat transparent;float: right;}
+            a.prev span, a.next span {display: none;}
+            .clearfix {float: none;clear: both;}
+            #carousel-wrapper {margin: 0 auto;}
+            .blue_border{border: 2px solid blue;}
+            .black_border{border: 2px solid black;}
+            .hide{display: none}
+        </style>
+    </head>
+<body>
+
+<!-- Button -->
+<button class="save-btn" type="button">SAVE</button><br><br>
+
+<!-- Color picker -->
+<div>
+    Color: <lable id="txtbox"></lable>
+    <span id="error-msg" style="color:red">Please Select A Color</span><br>
+    <div onclick="selectedColor('yellow',this.id)" class="swatch yellow" id="box-yellow"></div>
+    <div onclick="selectedColor('red',this.id)" class="swatch red" id="box-red"></div>
+    <div onclick="selectedColor('green',this.id)" class=" swatch green" id="box-green"></div>
+    
+</div>
+<br><br>
+
+<!-- Carousel -->
+<div class="" style="display: inline-flex;">
+    <button class="button" id="pre-btn" onclick="prevFunction()">&lt;</button>
+    <div class="image_carousel">
+        <div id="0">
+            <img onclick="selectedCarousel(this.id)" id="img1" class="caro-swatch" src="1.jpg" width="134" height="125" /></a>
+            <img onclick="selectedCarousel(this.id)" id="img2" class="caro-swatch" src="2.jpg" width="134" height="125" /></a>
+            <img onclick="selectedCarousel(this.id)" id="img3" class="caro-swatch" src="3.jpg" width="134" height="125" /></a>
+        </div>
+        <div id="1" style="display: none;">
+            <img onclick="selectedCarousel(this.id)" id="img4" class="caro-swatch" src="4.jpg" width="134" height="125" /></a>
+            <img onclick="selectedCarousel(this.id)" id="img5" class="caro-swatch" src="5.jpg" width="134" height="125"/></a>
+            <img onclick="selectedCarousel(this.id)" id="img6" class="caro-swatch" src="6.jpg" width="134" height="125"/></a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <button class="button" id="next-btn" onclick="nextFunction()">&gt;</button>
+</div>
+    
+
+<script>
+    var count = 0;
+    document.getElementById("pre-btn").disabled = true;
+   
+    function selectedColor(color,id){
+        document.getElementById('error-msg').style.display = 'none';
+        var elems = document.querySelectorAll(".swatch");
+
+        [].forEach.call(elems, function(el) {
+            el.classList.remove("blue_border");
+        })
+
+        var element = document.getElementById(id);
+        element.classList.toggle("blue_border");
+        document.getElementById("txtbox").textContent = color;
+    }
+
+    function selectedCarousel(id){
+        var elems = document.querySelectorAll(".caro-swatch");
+
+        [].forEach.call(elems, function(el) {
+            el.classList.remove("black_border");
+        })
+
+        var element = document.getElementById(id);
+        element.classList.toggle("black_border");
+    }
+
+    function prevFunction(){
+        document.getElementById("next-btn").disabled = false;
+        switch(count){
+            case 0:
+                document.getElementById(count).style.display = 'none';
+                count--;
+                document.getElementById(count).style.display = 'block';
+                break;
+            case 1:
+                document.getElementById(count).style.display = 'none';
+                document.getElementById("pre-btn").disabled = true;
+                count--;
+                document.getElementById(count).style.display = 'block';
+                break;
+        }
+    }
+   
+    function nextFunction(){
+        document.getElementById("pre-btn").disabled = false;
+        switch(count){
+            case 0:
+                document.getElementById(count).style.display = 'none';
+                document.getElementById("next-btn").disabled = true;
+                count++;
+                document.getElementById(count).style.display = 'block';
+                break;
+            case 1:
+                document.getElementById(count).style.display = 'none';
+                count++;
+                document.getElementById(count).style.display = 'block';
+                break;
+        }
+    }
+ 
+</script>
+</body>
+</html>
